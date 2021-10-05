@@ -9,7 +9,7 @@ const wordInProgress = document.querySelector(".word-in-progress");
 // Paragraph to display remaining guesses
 const remainingGuess = document.querySelector(".remaining");
 // Span inside the paragraph to display remaining guesses
-const guessSpanInside = document.querySelector("span");
+const guessSpanInside = document.querySelector(".remaining span");
 // Message holder when player guess a letter 
 const messageHolder = document.querySelector(".message");
 // Prompt player to try again
@@ -18,8 +18,12 @@ const playAgainButton = document.querySelector(".play-again");
 const word = "magnolia";
 
 // Add placeholders for each letter
-const updateWordInProgress = function () {
-   wordInProgress.innerText = "●"; 
+const updateWordInProgress = function (word) {
+   const tempLetterHolder = [];
+   for (let letter of word){
+       tempLetterHolder.push("●"); 
+   }
+   wordInProgress.innerText = tempLetterHolder.join(""); 
 };
 
 updateWordInProgress(word);
@@ -30,3 +34,4 @@ guessButton.addEventListener("click", function (e) {
     const enteredGuess = e.target.value;
     //enteredGuess = "";
 });
+
