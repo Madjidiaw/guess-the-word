@@ -23,7 +23,7 @@ const guessedLetters = [];
 const updateWordInProgress = function (word) {
    const tempLetterHolder = [];
    for (let letter of word){
-       console.log(letter)
+       console.log(letter);
        tempLetterHolder.push("●"); 
    }
    wordInProgress.innerText = tempLetterHolder.join(""); 
@@ -53,7 +53,7 @@ const validatePlayerInput = function (input) {
         console.log("invalid entry, try again!");
     } else {
         return input;
-    }
+    };
 };
 
 // Function to capture the player input
@@ -62,9 +62,39 @@ const makeGuess = function (enteredLetter) {
         console.log(`Already guessed ${enteredLetter}, try again!`);
     } else {
         guessedLetters.push(enteredLetter.toUpperCase());
-    }
+        updatePlayerGuess(guessedLetters);
+    };
     console.log(guessedLetters);
+    refreshWordInProgress(guessedLetters);
 };
 
+// Function to show the guessed letters
+const updatePlayerGuess = function (guessedLetters) {
+    listGuessedLetters.innerHTML = "";
+    for (let letter of guessedLetters) {
+        listGuessedLetters.push(letter);
+        //console.log(listGuessedLetters);
+    };  
+};
 
+// Used to update the word in progress
+const refreshWordInProgress = function (guessedLetters) {
+    const wordUpp = word.toUpperCase();
+    const wordArray = wordUpper.split("");
+    console.log(wordArray);
+    for (let letter of wordArray)
+    if (guessedLetters.contains(letter)) {
+       let updateChar = letter;
+       wordInProgress.append(updateChar);
+    }  
+    whoWonTheGame(); 
+};
+
+// Check if the play won the game
+const whoWonTheGame = function (word) {
+    if (){
+        guessSpanInside.innerText = <p class="highlight">You guessed correct the word! Congrats!</p>
+    }
+}
+//
 
