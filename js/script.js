@@ -122,6 +122,7 @@ const refreshWordInProgress = function (guessedLetters) {
     //console.log(revealWord);
     wordInProgress.innerText = revealWord.join("");
     whoWonTheGame(); 
+    
 };
 
 // Count player remaining guesses
@@ -149,7 +150,24 @@ const whoWonTheGame = function () {
     if (word.toUpperCase() === wordInProgress.innerText){
         messageHolder.classList.add("win");
         guessSpanInside.innerText = `<p class="highlight">You guessed correct the word! Congrats!</p>`;
+        startOver();
     }
 };
 
+// Hide button when the game ends and show the button for guess entry
+function startOver () {
+    guessButton.classList.remove("hide");
+    remainingGuess.classList.remove('hide');
+    listGuessedLetters.classList.remove("hide");
+    playAgainButton.classList.add("hide");
+};
 
+playAgainButton.addEventListener("click", function () {
+    guessButton.classList.remove("win");
+    remainingGuesses = 8;
+    guessedLetters = [];
+    guessSpanInside.innerText = `<p class="highlight">You have <span>8 guesses</span> remaining.</p>`;
+    guessButton.classList.add("hide");
+    playAgainButton.classList.removo("hide");
+    getWord();
+});
