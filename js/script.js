@@ -20,7 +20,7 @@ let word = "magnolia";
 // Place holder for all the letters the player guesses
 const guessedLetters = [];
 // Set a counter for a player's maximum allowed guesses
-const remainingGuesses = 8;
+let remainingGuesses = 8;
 
 const getWord = async function () {
     const fetchWord = await fetch (
@@ -88,7 +88,7 @@ const makeGuess = function (enteredLetter) {
         console.log(guessedLetters);
         
         updatePlayerGuess();
-        countRemainingGuess(guessedLetters);
+        countRemainingGuess(enteredLetter);
         refreshWordInProgress(guessedLetters);
     };
     
@@ -126,19 +126,21 @@ const refreshWordInProgress = function (guessedLetters) {
 
 // Count player remaining guesses
 const countRemainingGuess = function (guess) {
-    const wordToUpperCase = getWord().toUpperCase;
+    const wordToUpperCase = word.toUpperCase();
     if (!wordToUpperCase.includes(guess)) {
-        guessedLetters.append(guess);
-        messageHolder.innerText = "The word doesn't contain the letter!";
-        remainingGuesses -= 1;
+        //guessedLetters.append(guess);
+        messageHolder.innerText = `The word doesn't contain the letter ${guess}!`;
+        remainingGuesses -=1;
     } else {
-        messageHolder.innerText = "The letter is already in the word, try again!";
+        messageHolder.innerText = `Good guess! ${guess} is in the word!`;
     };
     if (remainingGuesses === 0) {
-        messageHolder.innerText = `The game is over, the word is ${wordToUpperCase}!`;
+        messageHolder.innerText = `The game is over! the word is <span class="highlight">${word}</span>!`;
     } else if (remainingGuesses === 1) {
         //guessSpanInside.innerText = `<p class="highlight">You have <strong>one</strong> guess remaining!</p>`;
-        guessSpanInside.innerText = `You have <strong>one</strong> guess remaining!`;
+        guessSpanInside.innerText = `You have ${remainingGuesses} guess remaining!`;
+    } else {
+        guessSpanInside.innerText = `${remainingGuesses} guesses left to play!`; 
     }
 };
 
