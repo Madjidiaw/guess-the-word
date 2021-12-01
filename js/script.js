@@ -28,10 +28,8 @@ const getWord = async function () {
     );
     const words = await fetchWord.text();
     const wordArray = words.split("\n");
-    //console.log(wordArray);
     const randomIndex = Math.floor(Math.random() * wordArray.length);
     word = wordArray[randomIndex].trim();
-    //word = randomword;
     lettersPlaceholder(word);
 };
 getWord();
@@ -52,10 +50,8 @@ const lettersPlaceholder = function (word) {
 guessButton.addEventListener("click", function (e) {
     e.preventDefault();
     const enteredGuess = textInput.value;
-    //enteredGuess.value = "";
     messageHolder.innerText = "";
     const validatedInput = validatePlayerInput(enteredGuess);
-    //console.log(validatedInput);
     if (validatedInput) {
         makeGuess(enteredGuess);
     };
@@ -67,7 +63,6 @@ const validatePlayerInput = function (input) {
     const acceptedLetter = /[a-zA-Z]/;
     if (input.length === 0) {
         messageHolder.innerText = "You did not enter a guess letter, try again!";
-        //playAgainButton.classList.remove("hide");
     } else if ( input.length > 1) {
         messageHolder.innerText = "Enter 1 (a single) letter, try again!";
     } else if (!input.match(acceptedLetter)) {
@@ -81,7 +76,6 @@ const validatePlayerInput = function (input) {
 const makeGuess = function (enteredLetter) {
     enteredLetter = enteredLetter.toUpperCase()
     if (guessedLetters.includes(enteredLetter)) {
-        //messageHolder.innerText = `Already guessed ${enteredLetter}, try again!`;
         messageHolder.innerText = "Already guessed that letter, try again";
     } else {
         guessedLetters.push(enteredLetter);
@@ -101,7 +95,6 @@ const updatePlayerGuess = function () {
         const li = document.createElement("li");
         li.innerText = letter;
         listGuessedLetters.append(li);
-        //console.log(listGuessedLetters);
     };  
 };
 
@@ -110,7 +103,6 @@ const refreshWordInProgress = function (guessedLetters) {
     const wordUpp = word.toUpperCase();
     const wordArray = wordUpp.split("");
     const revealWord = [];
-    //console.log(wordArray);
     for (let letter of wordArray){
         if (guessedLetters.includes(letter)) {
             let charToUpper = letter.toUpperCase();
@@ -119,7 +111,7 @@ const refreshWordInProgress = function (guessedLetters) {
         revealWord.push("●");
         };
     };    
-    //console.log(revealWord);
+
     wordInProgress.innerText = revealWord.join("");
     whoWonTheGame(); 
     
@@ -129,7 +121,6 @@ const refreshWordInProgress = function (guessedLetters) {
 const countRemainingGuess = function (guess) {
     const wordToUpperCase = word.toUpperCase();
     if (!wordToUpperCase.includes(guess)) {
-        //guessedLetters.append(guess);
         messageHolder.innerText = `The word doesn't contain the letter ${guess}!`;
         
     } else {
@@ -182,6 +173,7 @@ playAgainButton.addEventListener("click", function () {
     
     listGuessedLetters.classList.remove("hide");
     remainingGuess.classList.remove("hide");
+    
     // fetch a new word for the player to play again 
     getWord();
     
